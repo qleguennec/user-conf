@@ -36,14 +36,25 @@ function term {
 
 # Zsh
 function shell {
-	echo "Installing zsh"
 	if command -v zsh > /dev/null 2>&1; then
+		echo "Installing zsh"
 		sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 		curl -O /tmp/zshrc.patch https://gist.github.com/1c003a043b5c17e94178
 		cd $HOME
 		patch -p1 .zshrc < /tmp/zshrc.patch
 	else
 		echo "zsh is not installed, aborting shell setup"
+	fi
+}
+
+# Openbox
+function openbox {
+	if command -v openbox > /dev/null 2>&1; then
+		mkdir -p .config/
+		cd .config
+		git clone "$GITADDR/openbox-conf.git" openbox
+	else
+		echo "openbox not installed, aborting openbox setup"
 	fi
 }
 
@@ -57,10 +68,14 @@ case $1 in
 "shell")
 	shell
 	;;
+"openbox")
+	openbox
+	;;
 "")
 	fonts
 	term
 	shell
+	openbox
 	;;
 *)
 	echo "option $1 is unknown"
