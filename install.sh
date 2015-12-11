@@ -11,6 +11,11 @@ mkdir -p $HOME/img
 mkdir -p $HOME/dwl
 mkdir -p $HOME/.bin
 
+if [ ! -f "$HOME/.bin/user-install" ]; then
+	ln -s $HOME/.user/install.sh $HOME/.bin/user-install
+	chmod +x $HOME/.bin/user-install
+fi
+
 # Fonts
 function fonts {
 	echo "Installing inconsolata"
@@ -27,11 +32,13 @@ function fonts {
 function term {
 	"Installing st"
 	cd $HOME/wp
-	git clone "$GITADDR/st.git"
+	if [ ! -d "st" ]; then
+		git clone "$GITADDR/st.git" st
+	fi
 	cd st
 	make
 	cp st $HOME/.bin
-	make clean
+	make -C $HOME/wp/st clean
 }
 
 # Zsh
@@ -39,7 +46,7 @@ function shell {
 	if command -v zsh > /dev/null 2>&1; then
 		echo "Installing zsh"
 		sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-		curl -O /tmp/zshrc.patch https://gist.github.com/1c003a043b5c17e94178
+		curl -O /tmp/zshrc.patch https://gist.githubusercontent.com/1c003a043b5c17e94178/raw/patch
 		cd $HOME
 		patch -p1 .zshrc < /tmp/zshrc.patch
 	else
