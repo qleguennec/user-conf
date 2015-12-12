@@ -46,7 +46,7 @@ function shell {
 	if command -v zsh > /dev/null 2>&1; then
 		echo "Installing zsh"
 		sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-		curl https://gist.githubusercontent.com/raw/1c003a043b5c17e94178/patch -O /tmp/zshrc.patch
+		curl https://gist.githubusercontent.com/raw/1c003a043b5c17e94178/patch > /tmp/zshrc.patch
 		cd $HOME
 		patch -p1 .zshrc < /tmp/zshrc.patch
 	else
