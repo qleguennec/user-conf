@@ -46,7 +46,7 @@ function shell {
 	if command -v zsh > /dev/null 2>&1; then
 		echo "Installing zsh"
 		sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-		curl https://gist.githubusercontent.com/3ba24ff659da8ba821f5/raw/zshrc > $HOME/.zshrc
+		curl https://gist.githubusercontent.com/qleguennec/3ba24ff659da8ba821f5/raw/zshrc > $HOME/.zshrc
 	else
 		echo "zsh is not installed, aborting shell setup"
 	fi
