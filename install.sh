@@ -63,6 +63,11 @@ function openbox {
 	fi
 }
 
+# Vim
+function vim {
+	ln -sf $HOME/.user/.vimrc $HOME/.vimrc
+}
+
 case $1 in
 "fonts")
 	fonts
@@ -76,11 +81,15 @@ case $1 in
 "openbox")
 	openbox
 	;;
+"vim")
+	vim
+	;;
 "")
 	fonts
 	term
-	shell
 	openbox
+	shell
+	vim
 	;;
 *)
 	echo "option $1 is unknown"
